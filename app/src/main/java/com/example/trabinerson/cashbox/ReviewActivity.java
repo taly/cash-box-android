@@ -31,9 +31,6 @@ import java.util.Arrays;
  */
 public class ReviewActivity extends Activity {
 
-    public static final String EXTRA_MERCHANT = "extra_merchant";
-    public static final String EXTRA_AMOUNT = "arg_amount_cents";
-
     private TextView mTitle;
     private TextView mDescription;
     private View mSpinner;
@@ -58,7 +55,7 @@ public class ReviewActivity extends Activity {
 
         startSpinner();
 
-        final int amount = getIntent().getIntExtra(EXTRA_AMOUNT, 0);
+        final int amount = getIntent().getIntExtra(MainActivity.EXTRA_AMOUNT, 0);
         // TODO get FI from server instead of this crap
         new Handler().postDelayed(new Runnable() {
             @Override

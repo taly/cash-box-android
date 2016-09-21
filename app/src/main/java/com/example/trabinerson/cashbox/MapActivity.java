@@ -196,6 +196,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             public void onClick(DialogInterface dialog, int id) {
                 Intent intent = new Intent(context, AmountActivity.class);
                 Bundle extras = new Bundle();
+                extras.putParcelable(MainActivity.EXTRA_USER_DATA, getIntent().getExtras().getParcelable(MainActivity.EXTRA_USER_DATA));
                 // TODO put merchant in extras!!!
                 intent.putExtras(extras);
                 startActivity(intent);
