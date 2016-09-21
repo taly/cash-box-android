@@ -13,7 +13,7 @@ package com.example.trabinerson.cashbox;
 
 import android.content.Context;
 import android.net.Uri;
-import android.support.v4.content.Loader;
+import android.content.Loader;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -68,9 +68,10 @@ public class PlacesLoader extends Loader<List<Merchant>> {
                 .appendPath("nearbysearch")
                 .appendPath("json")
                 .appendQueryParameter("location", mLat+","+mLng)
-                .appendQueryParameter("radius", "2000")
+                .appendQueryParameter("radius", "20000")
                 .appendQueryParameter("type", "store")
                 .appendQueryParameter("key", "AIzaSyBesqSxaaDFBNkRWPJD6YdI1P2yVEUBPS8")
+                .appendQueryParameter("language", "en")
                 .build().toString(),null);
 
 }
