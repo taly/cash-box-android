@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>-NOTICE-</key>
+	<string>THIS FILE IS DIGITALLY SIGNED. DO NOT MODIFY.</string>
+	<key>Company Name</key>
+	<string>Paypal (eBay)</string>
+	<key>iOS</key>
+	<dict>
+		<key>App Bundle IDs</key>
+		<array>
+			<string>com.paypal.psbc.PayPalMCX</string>
+		</array>
+	</dict>
+	<key>Android</key>
+	<dict>
+		<key>Root Class Names</key>
+		<array>
+			<string>com.paypal.android.p2pmobile</string>
+		</array>
+	</dict>
+	
+</dict>
+</plist>
+-----BEGIN SIGNATURE-----
+MKJ2t6ZKKDWFjDmKzNUKivNjtUHtD+vWmnPqzV9SXMkZNMhLWn6KuEBcl2BpzG41
+sFMtulpPcMPq3e0Z17FhUZn82kcwrxJJJflExycwad7uZ6C4sR01zmMNwSAdvoLN
+Fz0h5b12Kl1yP2QT8M4df0e3kQB40nq3K5PsN9SBl9In80VFP9ZOboN0qJ1PJPwB
+1DcVxkG26F39+e9/KJwl0xqUJfb7y4HducJDvZgGD+46KC2NvD1yAWIz69IG1Of4
+rwjNE3TlyX5ht1sSgCkB7oVZ7OdVIAPOpGhtMmc6rKQjwvVKPfnnzaCEqGkHPSne
+MAfWOZfnlhhIwdP+7I5ZiynvoUKfchWXILQO6ZMVVtMCSRCloT/3DMPesKOgk/vm
+5YlqoU0eNqO8bPyZdFiTY8+xu8JUiOah1bqCGDb6YCyrKQ5PIqev/jhUx0CHF0Z+
+k5HxtOhf7/fGMhbAo6flJD6/8xGMWbZMGqtBzorLFy+UZrNNeo7fEbwaL4OPtDUs
+0EVEjuCjINQwSbcvLNJr0wwHN8dGzZDnZ4/SqKmnNkI8RRi+dA5KtShLXGDCUTqC
+DD1ubQMaqSGPMmjpyp0jOL5bIgKR9xUMrcGYof8rnCnhu4T/qZC3LF3pJNeDNd3L
+bSfMthu4tilmbg3KiBI0zwm3NT+lBBKj+emn9n9TKgY=
+-----END SIGNATURE-----

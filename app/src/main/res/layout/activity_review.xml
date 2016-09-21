@@ -13,7 +13,7 @@
         android:textSize="24sp"
         android:layout_marginLeft="26dp"
         android:layout_marginRight="26dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="150dp"
         android:layout_alignParentTop="true"
         style="@style/MainTextStyle"/>
 
@@ -35,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:src="@drawable/icon_spinner_white_large"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="150dp"
         android:layout_below="@id/title"/>
 
     <Button
