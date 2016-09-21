@@ -12,15 +12,18 @@
 package com.example.trabinerson.cashbox;
 
 import android.app.Activity;
+import android.app.LoaderManager;
 import android.content.Intent;
+import android.content.Loader;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
+import com.example.trabinerson.cashbox.loaders.ServerCashLoader;
 import com.example.trabinerson.cashbox.models.FundingOptionsData;
+import com.example.trabinerson.cashbox.models.UserData;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,13 +35,13 @@ import java.util.Arrays;
  */
 public class ReviewActivity extends Activity {
 
-    public static final String EXTRA_MERCHANT = "extra_merchant";
-    public static final String EXTRA_AMOUNT = "arg_amount_cents";
+    private static final int CASH_LOADER_ID = 1;
 
     private TextView mTitle;
     private TextView mDescription;
     private View mSpinner;
     private View mOkButton;
+    private String mFundingOptionId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,23 +56,19 @@ public class ReviewActivity extends Activity {
         mOkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ReviewActivity.this,QRActivity.class);
+                Intent intent = new Intent(ReviewActivity.this, QRActivity.class);
+                Bundle extras = new Bundle();
+                extras.putParcelable(MainActivity.EXTRA_USER_DATA, getIntent().getExtras().getParcelable(MainActivity.EXTRA_USER_DATA));
+                extras.putParcelable(MainActivity.EXTRA_MERCHANT, getIntent().getExtras().getParcelable(MainActivity.EXTRA_MERCHANT));
+                extras.putInt(MainActivity.EXTRA_AMOUNT, getIntent().getExtras().getInt(MainActivity.EXTRA_AMOUNT));
+                extras.putString(QRActivity.EXTRA_FUNDING_OPTION_ID, mFundingOptionId);
+                intent.putExtras(extras);
                 startActivity(intent);
-
             }
         });
 
         startSpinner();
-
-        final int amount = getIntent().getIntExtra(EXTRA_AMOUNT, 0);
-        // TODO get FI from server instead of this crap
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                stopSpinner();
-                setFundingOptions(amount, getDummyData(amount));
-            }
-        }, 3000);
+        loadCash();
     }
 
     private void startSpinner() {
@@ -89,17 +88,52 @@ public class ReviewActivity extends Activity {
         mOkButton.setVisibility(View.VISIBLE);
     }
 
+    private void loadCash() {
+        final int amount = getIntent().getIntExtra(MainActivity.EXTRA_AMOUNT, 0);
+        final String token = ((UserData) getIntent().getExtras().getParcelable(MainActivity.EXTRA_USER_DATA)).token;
+        getLoaderManager().initLoader(CASH_LOADER_ID, null, new LoaderManager.LoaderCallbacks<FundingOptionsData>() {
+            @Override
+            public Loader<FundingOptionsData> onCreateLoader(int id, Bundle args) {
+                return new ServerCashLoader(ReviewActivity.this, token, amount);
+            }
+
+            @Override
+            public void onLoadFinished(Loader<FundingOptionsData> loader, FundingOptionsData data) {
+                stopSpinner();
+                if (data != null) {
+                    mFundingOptionId = data.options.get(0).id;
+                    setFundingOptions(amount, data);
+                } else {
+                    // TODO
+                }
+            }
+
+            @Override
+            public void onLoaderReset(Loader<FundingOptionsData> loader) {
+
+            }
+        });
+    }
+
     private void setFundingOptions(int withdrawalAmount, FundingOptionsData data) {
         FundingOptionsData.Option fundingOption = data.options.get(0);
         String description = "You're withdrawing $" + withdrawalAmount + ".\n\n";
-        description += "Your PayPal account will be charged $" + withdrawalAmount + ", plus a fee of $" + fundingOption.fee.amount + ".\n\n";
+        float totalAmount = withdrawalAmount + Float.valueOf(fundingOption.fee.amount);
+        description += "Your PayPal account will be charged a total of $" + totalAmount;
+        if (Float.valueOf(fundingOption.fee.amount) > 0) {
+            description += ", which includes a fee of $" + fundingOption.fee.amount + ".\n\n";
+        } else {
+            description += ".\n\n";
+        }
+
+
         if (fundingOption.sources.size() == 1) {
             FundingOptionsData.Option.Source source = fundingOption.sources.get(0);
             description += "All of the funds will be taken from your ";
             description += sourceToString(source) + ".";
         } else {
             for (FundingOptionsData.Option.Source source : fundingOption.sources) {
-                description += "$" + source.amount + " will be taken from your " + sourceToString(source) + "\n\n";
+                description += "$" + source.amount + " will be taken from your " + sourceToString(source) + ".\n\n";
             }
         }
         mDescription.setText(description);
@@ -112,9 +146,9 @@ public class ReviewActivity extends Activity {
             case HOLDING:
                 return "PayPal balance";
             case CREDIT:
-                return "PayPal credit.";
+                return "PayPal credit";
             case PAYMENT_CARD:
-                return source.paymentCard.issuer + " (" + source.paymentCard.last4 + ").";
+                return source.paymentCard.issuer + " (" + source.paymentCard.last4 + ")";
         }
         return null;
     }

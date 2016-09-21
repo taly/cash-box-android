@@ -26,8 +26,6 @@ import android.widget.Toast;
  */
 public class AmountActivity extends Activity {
 
-    public static final String EXTRA_MERCHANT = "extra_merchant";
-
     private static final String STATE_AMOUNT = "state_amount";
     private static final int MAX_AMOUNT = 1000;
 
@@ -57,8 +55,10 @@ public class AmountActivity extends Activity {
                 if (mAmount > 0) {
                     Intent intent = new Intent(context, ReviewActivity.class);
                     Bundle extras = new Bundle();
-                    extras.putParcelable(ReviewActivity.EXTRA_MERCHANT, getIntent().getExtras().getParcelable(EXTRA_MERCHANT));
-                    extras.putInt(ReviewActivity.EXTRA_AMOUNT, mAmount);
+                    extras.putParcelable(MainActivity.EXTRA_MERCHANT, getIntent().getExtras().getParcelable(MainActivity.EXTRA_MERCHANT));
+                    extras.putInt(MainActivity.EXTRA_AMOUNT, mAmount);
+                    extras.putParcelable(MainActivity.EXTRA_USER_DATA, getIntent().getExtras().getParcelable(MainActivity.EXTRA_USER_DATA));
+                    extras.putParcelable(MainActivity.EXTRA_MERCHANT, getIntent().getExtras().getParcelable(MainActivity.EXTRA_MERCHANT));
                     intent.putExtras(extras);
                     startActivity(intent);
                 } else {
