@@ -41,8 +41,11 @@ public class Merchant implements Parcelable {
         mName = in.readString();
         mVicinity = in.readString();
         mRating = in.readFloat();
+        mGeometry = in.readParcelable(geometry.class.getClassLoader());
+
 
     }
+
 
     public static final Creator<Merchant> CREATOR = new Creator<Merchant>() {
         @Override
@@ -56,7 +59,6 @@ public class Merchant implements Parcelable {
         }
     };
 
-
     public String getName() {
         return mName;
     }
@@ -64,16 +66,15 @@ public class Merchant implements Parcelable {
     public String getVicinity() {
         return mVicinity;
     }
+
     public geometry getGeometry() {
         return mGeometry;
     }
 
+
     public float getRating() {
         return mRating;
     }
-
-
-
 
     @Override
     public int describeContents() {
@@ -81,25 +82,89 @@ public class Merchant implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(mName);
-        dest.writeString(mVicinity);
-        dest.writeFloat(mRating);
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(mName);
+        parcel.writeString(mVicinity);
+        parcel.writeFloat(mRating);
+        parcel.writeParcelable(mGeometry,i);
 
     }
-     class geometry{
-         location location = new location();
 
+
+    static class geometry implements Parcelable{
+
+        @SerializedName("location")
+        private location mLocation;
+
+        protected geometry(Parcel in) {
+            mLocation = in.readParcelable(location.class.getClassLoader());
+        }
+
+        public static final Creator<geometry> CREATOR = new Creator<geometry>() {
+            @Override
+            public geometry createFromParcel(Parcel in) {
+                return new geometry(in);
+            }
+
+            @Override
+            public geometry[] newArray(int size) {
+                return new geometry[size];
+            }
+        };
+
+        public location getLocation() {
+            return mLocation;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel parcel, int i) {
+            parcel.writeParcelable(mLocation, i);
+        }
     }
-    class location {
+
+    static class location implements Parcelable{
         public double lat;
         public double lng;
+
+        protected location(Parcel in) {
+            lat = in.readDouble();
+            lng = in.readDouble();
+        }
+
+        public static final Creator<location> CREATOR = new Creator<location>() {
+            @Override
+            public location createFromParcel(Parcel in) {
+                return new location(in);
+            }
+
+            @Override
+            public location[] newArray(int size) {
+                return new location[size];
+            }
+        };
 
         public double getLat() {
             return lat;
         }
+
         public double getLng() {
             return lng;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel parcel, int i) {
+            parcel.writeDouble(lat);
+            parcel.writeDouble(lng);
         }
     }
 }
