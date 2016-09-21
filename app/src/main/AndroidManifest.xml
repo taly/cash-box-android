@@ -27,21 +27,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-<<<<<<< HEAD
-        <activity android:name=".MapActivity">
-        </activity>
-        <activity android:name=".AmountActivity">
-        </activity>
-        <activity android:name=".QRActivity">
-        </activity>
-=======
 
-        <activity android:name=".AmountActivity" />
+        <activity android:name=".MapActivity"/>
+        <activity android:name=".AmountActivity"/>
         <activity android:name=".ReviewActivity" />
-        <activity android:name=".MapActivity" />
+        <activity android:name=".QRActivity"/>
 
-
->>>>>>> 0806429accea30f1cd0d03bee3d4e86ab3bd488f
     </application>
 
 </manifest>
