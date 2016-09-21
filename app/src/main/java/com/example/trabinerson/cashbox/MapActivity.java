@@ -1,10 +1,12 @@
 package com.example.trabinerson.cashbox;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -12,7 +14,6 @@ import android.app.LoaderManager;
 import android.content.Loader;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -187,6 +188,7 @@ public class MapActivity extends Activity implements OnMapReadyCallback, GoogleA
 
     @Override
     public boolean onMarkerClick(final Marker marker) {
+
         if(android.text.TextUtils.isDigitsOnly(marker.getTitle()))
         {
             AlertDialog.Builder dialog = new AlertDialog.Builder(this);
@@ -197,9 +199,9 @@ public class MapActivity extends Activity implements OnMapReadyCallback, GoogleA
 
                 @Override
                 public void onClick(DialogInterface dialog, int id) {
-                    Intent intent = new Intent(MapActivity.this,QRActivity.class);
+                    Intent intent = new Intent(MapActivity.this,AmountActivity.class);
                     Bundle b = new Bundle();
-                    b.putParcelable(QRActivity.EXTRA_QR_TEXT, mMerchantList.get(Integer.valueOf(marker.getTitle())));
+                    b.putParcelable(AmountActivity.EXTRA_MERCHANT, mMerchantList.get(Integer.valueOf(marker.getTitle())));
                     intent.putExtras(b);
                     startActivity(intent);
                 }

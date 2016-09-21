@@ -12,6 +12,8 @@
 package com.example.trabinerson.cashbox;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -24,10 +26,12 @@ import android.widget.Toast;
  */
 public class AmountActivity extends Activity {
 
-    private static final String STATE_AMOUNT_CENTS = "state_amount_cents";
-    private static final int MAX_AMOUNT_CENTS = 100000; // $1,000
+    public static final String EXTRA_MERCHANT = "extra_merchant";
 
-    private int mAmountCents;
+    private static final String STATE_AMOUNT = "state_amount";
+    private static final int MAX_AMOUNT = 1000;
+
+    private int mAmount;
     private TextView mAmountTextView;
 
     @Override
@@ -36,20 +40,38 @@ public class AmountActivity extends Activity {
         setContentView(R.layout.activity_amount);
 
         if (savedInstanceState != null) {
-            mAmountCents = savedInstanceState.getInt(STATE_AMOUNT_CENTS);
+            mAmount = savedInstanceState.getInt(STATE_AMOUNT);
         } else {
-            mAmountCents = 0;
+            mAmount = 0;
         }
 
         mAmountTextView = (TextView) findViewById(R.id.text_amount);
         setupNumPad();
-        requestNewAmount(mAmountCents);
+        requestNewAmount(mAmount);
+
+        View nextButton = findViewById(R.id.next_button);
+        final Context context = this;
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mAmount > 0) {
+                    Intent intent = new Intent(context, ReviewActivity.class);
+                    Bundle extras = new Bundle();
+                    extras.putParcelable(ReviewActivity.EXTRA_MERCHANT, getIntent().getExtras().getParcelable(EXTRA_MERCHANT));
+                    extras.putInt(ReviewActivity.EXTRA_AMOUNT, mAmount);
+                    intent.putExtras(extras);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(context, "Amount must be positive", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(STATE_AMOUNT_CENTS, mAmountCents);
+        outState.putInt(STATE_AMOUNT, mAmount);
     }
 
     private void setupNumPad() {
@@ -59,7 +81,7 @@ public class AmountActivity extends Activity {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int requestedAmount = mAmountCents;
+                    int requestedAmount = mAmount;
                     requestedAmount *= (v.getId() == R.id.double_zeros) ? 100 : 10;
                     requestedAmount += Integer.parseInt(((TextView) v).getText().toString());
                     requestNewAmount(requestedAmount);
@@ -71,19 +93,19 @@ public class AmountActivity extends Activity {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int requestedAmount = (int) Math.floor(mAmountCents / 10);
+                int requestedAmount = (int) Math.floor(mAmount / 10);
                 requestNewAmount(requestedAmount);
             }
         });
     }
 
-    private boolean requestNewAmount(int newAmountCents) {
-        if (newAmountCents > MAX_AMOUNT_CENTS) {
-            Toast.makeText(this, "Max amount: $" + MAX_AMOUNT_CENTS/100, Toast.LENGTH_SHORT).show();
+    private boolean requestNewAmount(int newAmount) {
+        if (newAmount > MAX_AMOUNT) {
+            Toast.makeText(this, "Max amount: $" + MAX_AMOUNT, Toast.LENGTH_SHORT).show();
             return false;
         }
-        mAmountCents = newAmountCents;
-        mAmountTextView.setText("$" + String.format("%.2f", mAmountCents / 100f));
+        mAmount = newAmount;
+        mAmountTextView.setText("$" + mAmount);
         return true;
     }
 

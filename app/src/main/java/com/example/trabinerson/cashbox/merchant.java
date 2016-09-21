@@ -14,11 +14,7 @@ package com.example.trabinerson.cashbox;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.annotations.SerializedName;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  * TODO: Write Javadoc for merchant.
