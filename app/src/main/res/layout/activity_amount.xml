@@ -111,7 +111,6 @@
 
     </LinearLayout>
 
-    
     <Button
         android:id="@+id/next_button"
         android:layout_width="match_parent"
