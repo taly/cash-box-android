@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/background_main">
+
+    <TextView
+        android:id="@+id/text_amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="$0.00"
+        style="@style/MainTextStyle"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="50dp"
+        android:textSize="70sp"/>
+
+    <TextView
+        android:id="@+id/text_currency"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_amount"
+        android:text="USD >"
+        android:textSize="20sp"
+        style="@style/MainTextStyle"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_currency"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp">
+            <TextView
+                android:id="@+id/one"
+                android:text="1"
+                style="@style/NumPadButtonStyle"/>
+            <TextView
+                android:id="@+id/two"
+                android:text="2"
+                style="@style/NumPadButtonStyle"/>
+            <TextView
+                android:id="@+id/three"
+                android:text="3"
+                style="@style/NumPadButtonStyle"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp">
+            <TextView
+                android:id="@+id/four"
+                android:text="4"
+                style="@style/NumPadButtonStyle"/>
+            <TextView
+                android:id="@+id/five"
+                android:text="5"
+                style="@style/NumPadButtonStyle"/>
+            <TextView
+                android:id="@+id/six"
+                android:text="6"
+                style="@style/NumPadButtonStyle"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp">
+            <TextView
+                android:id="@+id/seven"
+                android:text="7"
+                style="@style/NumPadButtonStyle"/>
+            <TextView
+                android:id="@+id/eight"
+                android:text="8"
+                style="@style/NumPadButtonStyle"/>
+            <TextView
+                android:id="@+id/nine"
+                android:text="9"
+                style="@style/NumPadButtonStyle"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/double_zeros"
+                android:text="00"
+                style="@style/NumPadButtonStyle"/>
+            <TextView
+                android:id="@+id/zero"
+                android:text="0"
+                style="@style/NumPadButtonStyle"/>
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:id="@+id/backspace"
+                android:src="@drawable/numberpad_backspace_enabled"
+                />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    
+    <Button
+        android:id="@+id/next_button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/colorButton"
+        android:layout_alignParentBottom="true"
+        android:text="Next"
+        style="@style/ButtonStyle"/>
+
+</RelativeLayout>
