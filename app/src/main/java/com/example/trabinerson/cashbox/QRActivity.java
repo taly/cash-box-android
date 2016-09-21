@@ -4,34 +4,48 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.example.trabinerson.cashbox.models.UserData;
 
 import net.glxn.qrgen.android.QRCode;
 
 public class QRActivity extends Activity {
 
-    public static final String EXTRA_QR_TEXT = "QR_TEXT";
+    public static final String EXTRA_FUNDING_OPTION_ID = "extra_funding_option_id";
+
+    private static final String DELIMITER = "\t";
+
     private Merchant mMerchant;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qr);
         Bundle b = this.getIntent().getExtras();
         if (b != null) {
-            mMerchant = b.getParcelable(EXTRA_QR_TEXT);
-        Bitmap myBitmap = QRCode.from(mMerchant.getName()).bitmap();
-        ImageView myImage = (ImageView) findViewById(R.id.qr_code);
-        myImage.setImageBitmap(myBitmap);
+            mMerchant = b.getParcelable(MainActivity.EXTRA_MERCHANT);
+            Bitmap myBitmap = QRCode.from(getQrString()).bitmap();
+            ImageView myImage = (ImageView) findViewById(R.id.qr_code);
+            myImage.setImageBitmap(myBitmap);
         }
     }
-    public void navigateAction(View view)
-    {
+
+    public void navigateAction(View view) {
         Uri gmmIntentUri = Uri.parse("geo:"+mMerchant.getGeometry().getLocation().getLat()+","+mMerchant.getGeometry().getLocation().getLng());
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
         mapIntent.setPackage("com.google.android.apps.maps");
         startActivity(mapIntent);
+    }
+
+    private String getQrString() {
+        Bundle extras = getIntent().getExtras();
+        String fundingOptionId = extras.getString(EXTRA_FUNDING_OPTION_ID);
+        UserData userData = extras.getParcelable(MainActivity.EXTRA_USER_DATA);
+        int amount = extras.getInt(MainActivity.EXTRA_AMOUNT);
+        String qrString = userData.email + DELIMITER + userData.fullName + DELIMITER + amount + DELIMITER + fundingOptionId;
+        return qrString;
     }
 }

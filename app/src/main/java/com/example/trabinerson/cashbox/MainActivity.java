@@ -12,6 +12,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.example.trabinerson.cashbox.loaders.ServerConnectLoader;
+import com.example.trabinerson.cashbox.models.UserData;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 /**
  *
@@ -42,7 +44,8 @@ public class MainActivity extends Activity {
                 Log.d(LOG_TAG, "shouldOverrideUrlLoading: " + url);
                 if (UrlHelper.doesUrlMatchRedirectUrl(url)) {
                     String authCode = UrlHelper.getCodeFromUrl(url);
-                    connectToServer(authCode);
+                    String firebaseToken = FirebaseInstanceId.getInstance().getToken();
+                    connectToServer(authCode, firebaseToken);
                     return true;
                 }
                 return super.shouldOverrideUrlLoading(view, url);
@@ -53,14 +56,14 @@ public class MainActivity extends Activity {
     }
 
 
-    private void connectToServer(final String authCode) {
+    private void connectToServer(final String authCode, final String firebaseToken) {
         Log.d(LOG_TAG, "Connecting to server...");
 
         final Context context = this;
         getLoaderManager().initLoader(SERVER_CONNECT_LOADER_ID, null, new LoaderManager.LoaderCallbacks<UserData>() {
             @Override
             public Loader<UserData> onCreateLoader(int id, Bundle args) {
-                return new ServerConnectLoader(context, authCode);
+                return new ServerConnectLoader(context, authCode, firebaseToken);
             }
 
             @Override

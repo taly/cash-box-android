@@ -20,12 +20,11 @@ import java.util.List;
  */
 public class SendMoneyParser {
 
-    public static FundingOptionsData parseFundingOptions(String fundingOptionsResponseBody) {
+    public static FundingOptionsData parseFundingOptions(JSONObject fundingOptionsResponseBody) {
         FundingOptionsData result = new FundingOptionsData();
         try {
-            JSONObject base = new JSONObject(fundingOptionsResponseBody);
 
-            JSONObject fundingOptions = base.getJSONObject("funding_options");
+            JSONObject fundingOptions = fundingOptionsResponseBody.getJSONObject("funding_options");
             result.paymentType = SendMoneyConstants.PaymentType.valueOf(fundingOptions.getString("payment_type"));
 
             JSONObject payee = fundingOptions.getJSONObject("payee");
@@ -113,7 +112,7 @@ public class SendMoneyParser {
             }
 
         } catch (JSONException ex) {
-            throw new RuntimeException(fundingOptionsResponseBody, ex);
+            throw new RuntimeException("Bah", ex);
         }
 
         return result;

@@ -9,7 +9,7 @@
  * PARTICULAR PURPOSE.
  */
 
-package com.example.trabinerson.cashbox;
+package com.example.trabinerson.cashbox.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;

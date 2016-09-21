@@ -1,20 +1,17 @@
 package com.example.trabinerson.cashbox;
 
 import android.app.Activity;
-import android.content.Context;
+import android.app.LoaderManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.app.LoaderManager;
-import android.content.Loader;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -29,9 +26,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.firebase.iid.FirebaseInstanceId;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MapActivity extends Activity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,LoaderManager.LoaderCallbacks<List<Merchant>> , GoogleMap.OnMarkerClickListener {
@@ -68,7 +63,6 @@ public class MapActivity extends Activity implements OnMapReadyCallback, GoogleA
                 .target(new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()))
                 .zoom(14)
                 .build();
-        String token = FirebaseInstanceId.getInstance().getToken();
 
         googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(mPosition));
         googleMap.addMarker(new MarkerOptions()

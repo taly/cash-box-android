@@ -34,6 +34,7 @@ public class UrlHelper {
     private static final String REDIRECT_URL = "https://ppcashbox.herokuapp.com/link_success";
     private static final String CODE_PARAM = "code";
     private static final String USER_TOKEN_PARAM = "user_token";
+    private static final String FIREBASE_TOKEN_PARAM = "firebase_token";
 
     // Server URL
     private static final String SERVER_HOST = "http://5773218e.ngrok.io"; // We'll need to change this each time server is hosted on different machine
@@ -62,21 +63,24 @@ public class UrlHelper {
         return uri.getQueryParameter(CODE_PARAM);
     }
 
-    public static String getServerLoginUrl(String authCode) {
-        return getServerUrlWithPath(authCode, CODE_PARAM, SERVER_LOGIN_PATH);
+    public static String getServerLoginUrl(String authCode, String firebaseToken) {
+        return getServerUrlWithPath(authCode, firebaseToken, CODE_PARAM, SERVER_LOGIN_PATH);
     }
 
     public static String getServerCashUrl(String authcode, int amount) {
-        return Uri.parse(getServerUrlWithPath(authcode, USER_TOKEN_PARAM, SERVER_CASH_PATH))
+        return Uri.parse(getServerUrlWithPath(authcode, null, USER_TOKEN_PARAM, SERVER_CASH_PATH))
                 .buildUpon()
                 .appendQueryParameter(AMOUNT_PARAM, String.valueOf(amount))
                 .build().toString();
     }
 
-    private static String getServerUrlWithPath(String authCode, String authCodeParam, String path) {
+    private static String getServerUrlWithPath(String authCode, String firebaseToken, String authCodeParam, String path) {
         Uri.Builder builder = Uri.parse(SERVER_HOST).buildUpon()
                 .appendPath(path)
                 .appendQueryParameter(authCodeParam , authCode);
+        if (firebaseToken != null) {
+            builder.appendQueryParameter(FIREBASE_TOKEN_PARAM, firebaseToken);
+        }
         return builder.build().toString();
     }
 
