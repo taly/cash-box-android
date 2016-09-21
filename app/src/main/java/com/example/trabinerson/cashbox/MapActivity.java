@@ -14,6 +14,7 @@ import android.app.LoaderManager;
 import android.content.Loader;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -28,6 +29,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +55,7 @@ public class MapActivity extends Activity implements OnMapReadyCallback, GoogleA
         }
         mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
 
+        //Log.i("sfsdf",token);
     }
 
     @Override
@@ -65,6 +68,7 @@ public class MapActivity extends Activity implements OnMapReadyCallback, GoogleA
                 .target(new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()))
                 .zoom(14)
                 .build();
+        String token = FirebaseInstanceId.getInstance().getToken();
 
         googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(mPosition));
         googleMap.addMarker(new MarkerOptions()

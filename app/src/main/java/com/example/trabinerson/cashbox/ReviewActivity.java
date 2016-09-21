@@ -12,6 +12,7 @@
 package com.example.trabinerson.cashbox;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -52,7 +53,9 @@ public class ReviewActivity extends Activity {
         mOkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO go to QR activity
+                Intent intent = new Intent(ReviewActivity.this,QRActivity.class);
+                startActivity(intent);
+
             }
         });
 

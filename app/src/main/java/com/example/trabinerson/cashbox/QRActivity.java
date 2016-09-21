@@ -1,7 +1,9 @@
 package com.example.trabinerson.cashbox;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -27,6 +29,9 @@ public class QRActivity extends Activity {
     }
     public void navigateAction(View view)
     {
-
+        Uri gmmIntentUri = Uri.parse("geo:"+mMerchant.getGeometry().getLocation().getLat()+","+mMerchant.getGeometry().getLocation().getLng());
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        startActivity(mapIntent);
     }
 }
