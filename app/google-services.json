@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "920254081994",
+    "firebase_url": "https://cashbox-ce175.firebaseio.com",
+    "project_id": "cashbox-ce175",
+    "storage_bucket": "cashbox-ce175.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:920254081994:android:18f6626469a8ad40",
+        "android_client_info": {
+          "package_name": "com.example.trabinerson.cashbox"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "920254081994-06n48risv9ojt5dad33ke5qs3bql2lnu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFSaN3SXPA4rk1CLDfL8LVRiAGteOwouo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

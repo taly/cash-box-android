@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CashBox</string>
+    <string name="qr_text">Scan this QR Code On the ATM selected</string>
+    <string name="qr_navigation_link"><u>Navigate there</u></string>
 </resources>
