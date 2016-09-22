@@ -15,7 +15,7 @@ import android.net.Uri;
 import android.util.Log;
 
 /**
- * TODO: Write Javadoc for UrlHelper.
+ * Generates all the URLs we need.
  *
  * @author trabinerson
  */

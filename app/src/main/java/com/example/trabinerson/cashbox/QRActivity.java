@@ -34,7 +34,7 @@ public class QRActivity extends Activity {
     }
 
     public void navigateAction(View view) {
-        Uri gmmIntentUri = Uri.parse("geo:"+mMerchant.getGeometry().getLocation().getLat()+","+mMerchant.getGeometry().getLocation().getLng());
+        Uri gmmIntentUri = Uri.parse("google.navigation:mode=w&q="+mMerchant.getGeometry().getLocation().getLat()+","+mMerchant.getGeometry().getLocation().getLng());
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
         mapIntent.setPackage("com.google.android.apps.maps");
         startActivity(mapIntent);
