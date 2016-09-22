@@ -15,6 +15,8 @@ import net.glxn.qrgen.android.QRCode;
 public class QRActivity extends Activity {
 
     public static final String EXTRA_FUNDING_OPTION_ID = "extra_funding_option_id";
+    public static int AMOUNT;
+    public static String MERCHANT;
 
     private static final String DELIMITER = "\t";
 
@@ -30,6 +32,7 @@ public class QRActivity extends Activity {
             Bitmap myBitmap = QRCode.from(getQrString()).bitmap();
             ImageView myImage = (ImageView) findViewById(R.id.qr_code);
             myImage.setImageBitmap(myBitmap);
+            MERCHANT = mMerchant.getName();
         }
     }
 
@@ -45,6 +48,7 @@ public class QRActivity extends Activity {
         String fundingOptionId = extras.getString(EXTRA_FUNDING_OPTION_ID);
         UserData userData = extras.getParcelable(MainActivity.EXTRA_USER_DATA);
         int amount = extras.getInt(MainActivity.EXTRA_AMOUNT);
+        AMOUNT = amount;
         String qrString = userData.email + DELIMITER + userData.fullName + DELIMITER + amount + DELIMITER + fundingOptionId;
         return qrString;
     }
