@@ -153,33 +153,4 @@ public class ReviewActivity extends Activity {
         return null;
     }
 
-    private FundingOptionsData getDummyData(int amount) {
-        FundingOptionsData.Option.Source source1 = new FundingOptionsData.Option.Source();
-        source1.instrumentType = SendMoneyConstants.InstrumentType.HOLDING;
-        source1.amount = "12";
-        source1.currencyCode = "USD";
-
-        FundingOptionsData.Option.Source source2 = new FundingOptionsData.Option.Source();
-        source2.instrumentType = SendMoneyConstants.InstrumentType.PAYMENT_CARD;
-        source2.amount = "9.1";
-        source2.currencyCode = "USD";
-        source2.paymentCard = new FundingOptionsData.Option.Source.PaymentCard();
-        source2.paymentCard.issuer = "Mastercard";
-        source2.paymentCard.last4 = "7890";
-        source2.paymentCard.type = SendMoneyConstants.PaymentCardType.CREDIT;
-
-        FundingOptionsData.Option option = new FundingOptionsData.Option();
-        option.id = "1234";
-        option.sources = Arrays.asList(source1, source2);
-        option.fee = new FundingOptionsData.Option.Fee();
-        option.fee.amount = "1.1";
-        option.fee.currencyCode = "USD";
-
-        FundingOptionsData data = new FundingOptionsData();
-        data.options = new ArrayList<>();
-        data.options.add(option);
-
-        return data;
-    }
-
 }

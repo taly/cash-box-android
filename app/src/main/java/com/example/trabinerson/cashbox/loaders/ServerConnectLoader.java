@@ -58,24 +58,26 @@ public class ServerConnectLoader extends Loader<UserData> {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.i(LOG_TAG, "Connected to server");
-                        String token = null;
-                        String email = null;
-                        String fullName = null;
-                        try {
-                            token = response.getString("user_token");
-                            email = response.getString("user_email");
-                            fullName = response.getString("user_fullname");
-                        } catch (JSONException e) {}
-                        deliverResult(new UserData(token, email, fullName));
+                        deliverResult(getDummyData());
+                        // Log.i(LOG_TAG, "Connected to server");
+                        // String token = null;
+                        // String email = null;
+                        // String fullName = null;
+                        // try {
+                        //     token = response.getString("user_token");
+                        //     email = response.getString("user_email");
+                        //    fullName = response.getString("user_fullname");
+                        //} catch (JSONException e) {}
+                        //deliverResult(new UserData(token, email, fullName));
                     }
                 },
 
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e(LOG_TAG, "Error while connecting to server", error);
-                        deliverResult(null);
+                        deliverResult(getDummyData());
+                        // Log.e(LOG_TAG, "Error while connecting to server", error);
+                        // deliverResult(null);
                     }
                 });
         request.setRetryPolicy(new DefaultRetryPolicy(
@@ -87,4 +89,11 @@ public class ServerConnectLoader extends Loader<UserData> {
         request.setTag("Test");
         RequestQueueSingleton.getInstance().addToRequestQueue(request);
     }
+    
+    private UserData getDummyData() {
+        return new UserData("dummy", "tafitaf@gmail.com", "Taly Rabinerson");
+    }
+
 }
+
+    
